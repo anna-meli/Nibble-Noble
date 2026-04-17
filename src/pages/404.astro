@@ -2,6 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { sitePath } from '../utils/site';
+
+const homeHref = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="Page not found | Nibble & Noble" description="That page does not exist.">
@@ -14,13 +17,13 @@ import Footer from '../components/Footer.astro';
     </p>
     <div class="mt-8 flex flex-wrap gap-4">
       <a
-        href="/"
+        href={homeHref}
         class="rounded-full bg-nn-sage px-5 py-2.5 text-sm font-semibold text-nn-bg hover:bg-nn-cream transition-colors"
       >
         Home
       </a>
       <a
-        href="/reviews"
+        href={sitePath('reviews')}
         class="rounded-full border border-nn-border bg-nn-surface/60 px-5 py-2.5 text-sm font-medium text-nn-cream hover:border-nn-accent-border transition-colors"
       >
         Reviews

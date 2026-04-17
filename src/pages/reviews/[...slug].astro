@@ -6,6 +6,7 @@ import Footer from '../../components/Footer.astro';
 import Prose from '../../components/Prose.astro';
 import TagList from '../../components/TagList.astro';
 import RatingStars from '../../components/RatingStars.astro';
+import { absoluteUrl, sitePath } from '../../utils/site';
 
 export async function getStaticPaths() {
   const reviews = await getCollection('reviews');
@@ -23,9 +24,11 @@ const dateStr = pubDate.toLocaleDateString('en-US', {
   month: 'long',
   day: 'numeric',
 });
-const og = heroImage
-  ? new URL(heroImage, Astro.site).href
-  : new URL('/og-default.svg', Astro.site).href;
+const siteUrl = Astro.site!;
+const og = absoluteUrl(
+  siteUrl,
+  sitePath(heroImage ? heroImage.replace(/^\/+/, '') : 'og-default.svg'),
+);
 ---
 
 <BaseLayout title={`${title} | Nibble & Noble`} description={description} ogImage={og}>
@@ -72,7 +75,14 @@ const og = heroImage
       {
         heroImage && (
           <div class="mb-10 overflow-hidden rounded-2xl border border-nn-border shadow-cozy">
-            <img src={heroImage} alt="" class="aspect-[16/9] w-full object-cover" width={800} height={450} loading="eager" />
+            <img
+              src={sitePath(heroImage.replace(/^\/+/, ''))}
+              alt=""
+              class="aspect-[16/9] w-full object-cover"
+              width={800}
+              height={450}
+              loading="eager"
+            />
           </div>
         )
       }
@@ -82,7 +92,7 @@ const og = heroImage
       </Prose>
 
       <footer class="mt-14 border-t border-nn-border pt-8">
-        <a href="/reviews" class="text-sm font-medium text-nn-sage hover:text-nn-cream transition-colors">
+        <a href={sitePath('reviews')} class="text-sm font-medium text-nn-sage hover:text-nn-cream transition-colors">
           ← Back to all reviews
         </a>
       </footer>

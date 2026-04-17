@@ -1,15 +1,32 @@
 ---
+import { sitePath } from '../utils/site';
+
 const pathname = Astro.url.pathname;
-const link = (href: string, label: string) => {
-  const active = pathname === href || (href !== '/' && pathname.startsWith(href));
+const homeHref = import.meta.env.BASE_URL;
+
+function norm(p: string): string {
+  const t = p.replace(/\/+$/, '');
+  return t === '' ? '/' : t;
+}
+
+const link = (pathFromRoot: string, label: string) => {
+  const rel = pathFromRoot.replace(/^\/+/, '');
+  const href = sitePath(rel);
+  const nPath = norm(pathname);
+  const nHref = norm(href);
+  const active = nPath === nHref || nPath.startsWith(`${nHref}/`);
   return { href, label, active };
 };
-const nav = [link('/reviews', 'Reviews'), link('/about', 'About')];
+
+const nav = [link('reviews', 'Reviews'), link('about', 'About')];
 ---
 
 <header class="border-b border-nn-border bg-nn-bg/90 backdrop-blur-sm sticky top-0 z-20">
   <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
-    <a href="/" class="font-display text-xl font-semibold tracking-tight text-nn-cream hover:text-nn-sage transition-colors">
+    <a
+      href={homeHref}
+      class="font-display text-xl font-semibold tracking-tight text-nn-cream hover:text-nn-sage transition-colors"
+    >
       Nibble & Noble
     </a>
     <nav class="flex flex-wrap items-center gap-1 sm:gap-2" aria-label="Main">

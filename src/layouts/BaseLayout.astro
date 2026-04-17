@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { absoluteUrl, sitePath } from '../utils/site';
 
 interface Props {
   title: string;
@@ -9,7 +10,11 @@ interface Props {
 
 const { title, description = 'Dining reviews and notes from Nibble & Noble.', ogImage } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const og = ogImage ?? new URL('/og-default.svg', Astro.site).href;
+const defaultOg = Astro.site ? absoluteUrl(Astro.site, sitePath('og-default.svg')) : sitePath('og-default.svg');
+const og = ogImage ?? defaultOg;
+const faviconHref = sitePath('favicon.svg');
+const manifestHref = sitePath('site.webmanifest');
+const rssHref = Astro.site ? absoluteUrl(Astro.site, sitePath('rss.xml')) : sitePath('rss.xml');
 ---
 
 <!doctype html>
@@ -17,8 +22,8 @@ const og = ogImage ?? new URL('/og-default.svg', Astro.site).href;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href={faviconHref} />
+    <link rel="manifest" href={manifestHref} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -38,7 +43,7 @@ const og = ogImage ?? new URL('/og-default.svg', Astro.site).href;
       href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700;1,7..72,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"
       rel="stylesheet"
     />
-    <link rel="alternate" type="application/rss+xml" title="Nibble & Noble" href={new URL('/rss.xml', Astro.site).href} />
+    <link rel="alternate" type="application/rss+xml" title="Nibble & Noble" href={rssHref} />
   </head>
   <body class="min-h-dvh flex flex-col bg-nn-bg text-nn-text">
     <slot />

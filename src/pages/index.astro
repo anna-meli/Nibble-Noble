@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ReviewCard from '../components/ReviewCard.astro';
 import { getCollection } from 'astro:content';
+import { sitePath } from '../utils/site';
 
 const reviews = await getCollection('reviews');
 const sorted = [...reviews].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -34,7 +35,9 @@ const recent = sorted.filter((r) => !featuredSlugs.has(r.slug)).slice(0, 4);
 
     <section class="mb-6 flex items-end justify-between gap-4">
       <h2 class="font-display text-2xl text-nn-cream">Featured reviews</h2>
-      <a href="/reviews" class="text-sm font-medium text-nn-sage hover:text-nn-cream transition-colors"> View all </a>
+      <a href={sitePath('reviews')} class="text-sm font-medium text-nn-sage hover:text-nn-cream transition-colors">
+        View all
+      </a>
     </section>
     <div class="mb-16 grid gap-6 sm:grid-cols-2">
       {featuredList.map((review) => <ReviewCard review={review} />)}

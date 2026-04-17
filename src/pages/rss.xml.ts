@@ -1,6 +1,7 @@
 import rss from '@astrojs/rss';
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import { absoluteUrl, sitePath } from '../utils/site';
 
 export const GET: APIRoute = async (context) => {
   const site = context.site ?? new URL('https://example.com');
@@ -15,7 +16,7 @@ export const GET: APIRoute = async (context) => {
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description,
-      link: new URL(`/reviews/${post.slug}/`, site).href,
+      link: absoluteUrl(site, sitePath(`reviews/${post.slug}/`)),
     })),
   });
 };

@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ReviewCard from '../../components/ReviewCard.astro';
 import { getCollection } from 'astro:content';
+import { sitePath } from '../../utils/site';
 
 const reviews = await getCollection('reviews');
 const sorted = [...reviews].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -18,7 +19,7 @@ const sorted = [...reviews].sort((a, b) => b.data.pubDate.valueOf() - a.data.pub
         Every entry is a single sitting—or several—distilled into what mattered on the plate and in the room.
       </p>
       <p class="mt-4 text-sm text-stone-500">
-        Subscribe via <a href="/rss.xml" class="text-nn-sage hover:text-nn-cream">RSS</a>.
+        Subscribe via <a href={sitePath('rss.xml')} class="text-nn-sage hover:text-nn-cream">RSS</a>.
       </p>
     </header>
     <div class="grid gap-6 sm:grid-cols-2">
