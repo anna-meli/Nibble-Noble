@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="About | Nibble & Noble"
+  description="Who writes Nibble & Noble, and what this critic journal is for."
+>
+  <Header />
+  <main class="mx-auto w-full max-w-3xl flex-1 px-4 py-10 sm:px-6 sm:py-14">
+    <h1 class="font-display text-3xl font-semibold text-nn-cream sm:text-4xl">About</h1>
+    <div class="nn-prose mt-8 max-w-none px-0">
+      <p>
+        <strong class="text-nn-cream">Nibble & Noble</strong> is a food critic blog built as a calm, dark reading
+        room—closer to a notebook margin than a billboard. The reviews are long-form on purpose: restaurants are small
+        worlds, and shortcuts usually show up in the prose before they show up in the cooking.
+      </p>
+      <p>
+        This site is a template you can grow: add your byline, your city, your ethics statement, and your own voice.
+        What stays constant is the shape—venue, context, meal, verdict—so readers know what kind of contract they are
+        signing when they scroll.
+      </p>
+      <p>
+        If you are an editor (human or agent), start with the <code>agents.md</code> file in the project root for stack
+        notes, content conventions, and design tokens.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

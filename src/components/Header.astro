@@ -1,0 +1,44 @@
+---
+const pathname = Astro.url.pathname;
+const link = (href: string, label: string) => {
+  const active = pathname === href || (href !== '/' && pathname.startsWith(href));
+  return { href, label, active };
+};
+const nav = [link('/reviews', 'Reviews'), link('/about', 'About')];
+---
+
+<header class="border-b border-nn-border bg-nn-bg/90 backdrop-blur-sm sticky top-0 z-20">
+  <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
+    <a href="/" class="font-display text-xl font-semibold tracking-tight text-nn-cream hover:text-nn-sage transition-colors">
+      Nibble & Noble
+    </a>
+    <nav class="flex flex-wrap items-center gap-1 sm:gap-2" aria-label="Main">
+      {
+        nav.map(({ href, label, active }) => (
+          <a
+            href={href}
+            class:list={[
+              'rounded-full px-3 py-1.5 text-sm font-medium transition-colors',
+              active
+                ? 'bg-nn-sage/20 text-nn-cream'
+                : 'text-nn-muted hover:bg-nn-surface hover:text-nn-cream',
+            ]}
+          >
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="w-full sm:w-auto sm:max-w-[200px] flex-1 sm:flex-initial">
+      <label class="sr-only" for="search-stub">Search</label>
+      <input
+        id="search-stub"
+        type="search"
+        disabled
+        placeholder="Search (soon)"
+        class="w-full cursor-not-allowed rounded-xl border border-nn-border bg-nn-surface/60 px-3 py-2 text-sm text-nn-muted placeholder:text-stone-500"
+        title="Search is not wired up in this template"
+      />
+    </div>
+  </div>
+</header>

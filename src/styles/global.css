@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --nn-bg: #1c1917;
+  --nn-surface: #292524;
+  --nn-elevated: #44403c;
+  --nn-muted: #a8a29e;
+  --nn-text: #fafaf9;
+  --nn-cream: #f5f0e6;
+  --nn-sage: #84a98c;
+  --nn-sage-dim: #5c7363;
+  --nn-border: rgba(245, 240, 230, 0.12);
+  --nn-accent-border: rgba(132, 169, 140, 0.45);
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth antialiased;
+    background-color: var(--nn-bg);
+    color: var(--nn-text);
+  }
+
+  body {
+    @apply font-sans text-nn-text;
+    background-color: var(--nn-bg);
+  }
+
+  a:not([class]) {
+    color: var(--nn-sage);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  a:not([class]):hover {
+    color: var(--nn-cream);
+  }
+}
+
+/* Long-form review typography (MDX body) */
+.nn-prose {
+  @apply max-w-prose mx-auto;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--nn-text);
+}
+
+.nn-prose > :first-child {
+  margin-top: 0;
+}
+
+.nn-prose h2 {
+  @apply font-display text-2xl sm:text-3xl mt-12 mb-4;
+  color: var(--nn-cream);
+  letter-spacing: -0.02em;
+}
+
+.nn-prose h3 {
+  @apply font-display text-xl mt-8 mb-3;
+  color: var(--nn-cream);
+}
+
+.nn-prose p {
+  @apply my-5 text-stone-200;
+}
+
+.nn-prose a {
+  color: var(--nn-sage);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.nn-prose a:hover {
+  color: var(--nn-cream);
+}
+
+.nn-prose ul,
+.nn-prose ol {
+  @apply my-5 pl-6 text-stone-200;
+}
+
+.nn-prose li {
+  @apply my-2;
+}
+
+.nn-prose blockquote {
+  @apply my-8 pl-5 border-l-4 italic text-stone-300;
+  border-color: var(--nn-sage);
+  background: linear-gradient(
+    90deg,
+    rgba(132, 169, 140, 0.08),
+    transparent 70%
+  );
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-right: 1rem;
+}
+
+.nn-prose hr {
+  @apply my-12 border-0 h-px;
+  background: var(--nn-border);
+}
+
+.nn-prose strong {
+  @apply text-nn-cream font-semibold;
+}
+
+.nn-prose code {
+  @apply text-sm px-1.5 py-0.5 rounded;
+  background: var(--nn-elevated);
+  color: var(--nn-cream);
+}

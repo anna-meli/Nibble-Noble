@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ReviewCard from '../components/ReviewCard.astro';
+import { getCollection } from 'astro:content';
+
+const reviews = await getCollection('reviews');
+const sorted = [...reviews].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const featuredList =
+  sorted.filter((r) => r.data.featured).length > 0
+    ? sorted.filter((r) => r.data.featured).slice(0, 3)
+    : sorted.slice(0, 2);
+const featuredSlugs = new Set(featuredList.map((r) => r.slug));
+const recent = sorted.filter((r) => !featuredSlugs.has(r.slug)).slice(0, 4);
+---
+
+<BaseLayout title="Nibble & Noble" description="Food criticism: dining reviews, verdicts, and notes from the table.">
+  <Header />
+  <main class="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6 sm:py-14">
+    <section class="mb-14 rounded-3xl border border-nn-border bg-gradient-to-br from-nn-surface/80 to-nn-bg px-6 py-10 sm:px-10 sm:py-12 shadow-cozy">
+      <p class="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-nn-sage">Food critic journal</p>
+      <h1 class="font-display text-3xl font-semibold leading-tight text-nn-cream sm:text-4xl md:text-5xl">
+        Nibble & Noble
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-stone-300">
+        Long-form dining reviews for people who care about verbs like <em>simmer</em> and <em>earn</em>. I write about
+        restaurants the way you talk about them on the walk home—just with more structure and fewer apologies.
+      </p>
+      <p class="mt-6 text-sm text-nn-muted">
+        Dark-only, cozy typography, no recipe SEO tricks—just tables, kitchens, and opinions.
+      </p>
+    </section>
+
+    <section class="mb-6 flex items-end justify-between gap-4">
+      <h2 class="font-display text-2xl text-nn-cream">Featured reviews</h2>
+      <a href="/reviews" class="text-sm font-medium text-nn-sage hover:text-nn-cream transition-colors"> View all </a>
+    </section>
+    <div class="mb-16 grid gap-6 sm:grid-cols-2">
+      {featuredList.map((review) => <ReviewCard review={review} />)}
+    </div>
+
+    <section class="mb-6">
+      <h2 class="font-display text-2xl text-nn-cream">From the journal</h2>
+      <p class="mt-1 text-sm text-nn-muted">Recent pieces not shown above.</p>
+    </section>
+    <div class="grid gap-6 sm:grid-cols-2">
+      {
+        recent.length > 0 ? (
+          recent.map((review) => <ReviewCard review={review} />)
+        ) : (
+          <p class="text-nn-muted">More reviews coming soon.</p>
+        )
+      }
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

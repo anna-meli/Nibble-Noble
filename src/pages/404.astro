@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Page not found | Nibble & Noble" description="That page does not exist.">
+  <Header />
+  <main class="mx-auto flex max-w-lg flex-1 flex-col items-start justify-center px-4 py-20 sm:px-6">
+    <p class="text-sm font-medium uppercase tracking-widest text-nn-sage">404</p>
+    <h1 class="mt-3 font-display text-3xl text-nn-cream">This table is not reserved</h1>
+    <p class="mt-4 text-nn-muted leading-relaxed">
+      The URL may have moved, or the review was pulled back into drafts. Try the home page or the reviews index.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a
+        href="/"
+        class="rounded-full bg-nn-sage px-5 py-2.5 text-sm font-semibold text-nn-bg hover:bg-nn-cream transition-colors"
+      >
+        Home
+      </a>
+      <a
+        href="/reviews"
+        class="rounded-full border border-nn-border bg-nn-surface/60 px-5 py-2.5 text-sm font-medium text-nn-cream hover:border-nn-accent-border transition-colors"
+      >
+        Reviews
+      </a>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

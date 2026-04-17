@@ -1,0 +1,21 @@
+---
+interface Props {
+  tags?: string[];
+}
+
+const { tags = [] } = Astro.props;
+---
+
+{
+  tags.length > 0 && (
+    <ul class="flex flex-wrap gap-2" role="list">
+      {tags.map((tag) => (
+        <li>
+          <span class="inline-flex rounded-full border border-nn-border bg-nn-surface/80 px-2.5 py-0.5 text-xs font-medium text-nn-cream">
+            {tag}
+          </span>
+        </li>
+      ))}
+    </ul>
+  )
+}

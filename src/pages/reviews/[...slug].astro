@@ -1,0 +1,92 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Prose from '../../components/Prose.astro';
+import TagList from '../../components/TagList.astro';
+import RatingStars from '../../components/RatingStars.astro';
+
+export async function getStaticPaths() {
+  const reviews = await getCollection('reviews');
+  return reviews.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, description, pubDate, venue, location, rating, priceBand, cuisine, tags, heroImage } = entry.data;
+const dateStr = pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+const og = heroImage
+  ? new URL(heroImage, Astro.site).href
+  : new URL('/og-default.svg', Astro.site).href;
+---
+
+<BaseLayout title={`${title} | Nibble & Noble`} description={description} ogImage={og}>
+  <Header />
+  <main class="mx-auto w-full max-w-3xl flex-1 px-4 py-10 sm:px-6 sm:py-12">
+    <article>
+      <header class="mb-10">
+        <p class="text-sm font-medium text-nn-sage">
+          <span class="text-nn-cream">{venue}</span>
+          <span class="mx-2 text-nn-muted" aria-hidden="true">·</span>
+          <span class="text-nn-muted">{location}</span>
+          {priceBand && (
+            <>
+              <span class="mx-2 text-nn-muted" aria-hidden="true">·</span>
+              <span class="rounded-full border border-nn-border bg-nn-surface/80 px-2 py-0.5 text-xs text-nn-cream">
+                {priceBand}
+              </span>
+            </>
+          )}
+        </p>
+        <h1 class="mt-4 font-display text-3xl font-semibold leading-tight text-nn-cream sm:text-4xl md:text-[2.75rem]">
+          {title}
+        </h1>
+        <p class="mt-4 text-lg leading-relaxed text-stone-300">{description}</p>
+        <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-nn-muted">
+          <time datetime={pubDate.toISOString()}>{dateStr}</time>
+          {cuisine && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>{cuisine}</span>
+            </>
+          )}
+        </div>
+        {rating != null && (
+          <div class="mt-4">
+            <RatingStars rating={rating} />
+          </div>
+        )}
+        <div class="mt-6">
+          <TagList tags={tags} />
+        </div>
+      </header>
+
+      {
+        heroImage && (
+          <div class="mb-10 overflow-hidden rounded-2xl border border-nn-border shadow-cozy">
+            <img src={heroImage} alt="" class="aspect-[16/9] w-full object-cover" width={800} height={450} loading="eager" />
+          </div>
+        )
+      }
+
+      <Prose>
+        <Content />
+      </Prose>
+
+      <footer class="mt-14 border-t border-nn-border pt-8">
+        <a href="/reviews" class="text-sm font-medium text-nn-sage hover:text-nn-cream transition-colors">
+          ← Back to all reviews
+        </a>
+      </footer>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>

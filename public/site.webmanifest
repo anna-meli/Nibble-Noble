@@ -1,0 +1,9 @@
+{
+  "name": "Nibble & Noble",
+  "short_name": "Nibble",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1c1917",
+  "theme_color": "#1c1917",
+  "icons": [{ "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" }]
+}

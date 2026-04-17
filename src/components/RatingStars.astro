@@ -1,0 +1,23 @@
+---
+interface Props {
+  rating: number;
+  max?: number;
+}
+
+const { rating, max = 5 } = Astro.props;
+const clamped = Math.min(max, Math.max(0, rating));
+---
+
+<p class="flex items-center gap-1 text-nn-sage" aria-label={`Rating ${clamped} out of ${max}`}>
+  {
+    Array.from({ length: max }, (_, i) => {
+      const filled = i < Math.round(clamped);
+      return (
+        <span aria-hidden="true" class={filled ? 'text-nn-sage' : 'text-stone-600'}>
+          ★
+        </span>
+      );
+    })
+  }
+  <span class="ml-1 text-xs font-sans text-nn-muted tabular-nums">{clamped}/{max}</span>
+</p>
