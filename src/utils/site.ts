@@ -3,7 +3,7 @@
  * Pass without a leading slash, e.g. `reviews/my-slug`, `favicon.svg`, `rss.xml`.
  */
 export function sitePath(path: string): string {
-  const base = import.meta.env.BASE_URL;
+  const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   const rel = path.replace(/^\/+/, '');
   const joined = `${base}${rel}`;
   return joined.startsWith('/') ? joined : `/${joined}`;

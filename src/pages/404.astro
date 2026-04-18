@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { sitePath } from '../utils/site';
 
-const homeHref = import.meta.env.BASE_URL;
+const homeHref = sitePath('');
 ---
 
 <BaseLayout title="Page not found | Nibble & Noble" description="That page does not exist.">
