@@ -25,6 +25,10 @@
   body {
     @apply font-sans text-nn-text;
     background-color: var(--nn-bg);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(132, 169, 140, 0.14), transparent 34rem),
+      linear-gradient(180deg, rgba(132, 169, 140, 0.08), rgba(28, 25, 23, 0) 22rem);
+    background-attachment: fixed;
   }
 
   a:not([class]) {
