@@ -60,6 +60,7 @@ const burgerSrc = sitePath('food-bg/burger.png');
 
     if (reducedMotion.matches) {
       floatingFood.forEach((item) => {
+        if (!(item instanceof HTMLElement)) return;
         const baseRotate = Number(item.dataset.baseRotate || 0);
         item.style.transform = `rotate(${baseRotate}deg)`;
       });
@@ -70,6 +71,7 @@ const burgerSrc = sitePath('food-bg/burger.png');
     const progress = window.scrollY / maxScroll;
 
     floatingFood.forEach((item) => {
+      if (!(item instanceof HTMLElement)) return;
       const speedX = Number(item.dataset.speedX || 0);
       const speedY = Number(item.dataset.speedY || 0);
       const spin = Number(item.dataset.spin || 0);

@@ -19,6 +19,7 @@ const link = (pathFromRoot: string, label: string) => {
 };
 
 const nav = [link('reviews', 'Reviews'), link('about', 'About')];
+const reviewsHref = sitePath('reviews');
 ---
 
 <header class="border-b border-nn-border bg-nn-bg/90 backdrop-blur-sm sticky top-0 z-20">
@@ -46,16 +47,15 @@ const nav = [link('reviews', 'Reviews'), link('about', 'About')];
         ))
       }
     </nav>
-    <div class="w-full sm:w-auto sm:max-w-[200px] flex-1 sm:flex-initial">
-      <label class="sr-only" for="search-stub">Search</label>
+    <form action={reviewsHref} method="get" class="w-full sm:w-auto sm:max-w-[240px] flex-1 sm:flex-initial">
+      <label class="sr-only" for="site-search">Search reviews</label>
       <input
-        id="search-stub"
+        id="site-search"
+        name="q"
         type="search"
-        disabled
-        placeholder="Search (soon)"
-        class="w-full cursor-not-allowed rounded-xl border border-nn-border bg-nn-surface/60 px-3 py-2 text-sm text-nn-muted placeholder:text-stone-500"
-        title="Search is not wired up in this template"
+        placeholder="Search reviews"
+        class="w-full rounded-xl border border-nn-border bg-nn-surface/60 px-3 py-2 text-sm text-nn-text placeholder:text-stone-500 transition focus:border-nn-accent-border focus:outline-none focus:ring-2 focus:ring-nn-sage/30"
       />
-    </div>
+    </form>
   </div>
 </header>

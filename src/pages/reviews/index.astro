@@ -22,9 +22,49 @@ const sorted = [...reviews].sort((a, b) => b.data.pubDate.valueOf() - a.data.pub
         Subscribe via <a href={sitePath('rss.xml')} class="text-nn-sage hover:text-nn-cream">RSS</a>.
       </p>
     </header>
-    <div class="grid gap-6 sm:grid-cols-2">
+    <p id="reviews-search-status" class="mb-6 hidden text-sm text-nn-muted"></p>
+    <div id="reviews-grid" class="grid gap-6 sm:grid-cols-2">
       {sorted.map((review) => <ReviewCard review={review} />)}
     </div>
+    <p id="reviews-search-empty" class="mt-8 hidden text-sm text-nn-muted">
+      No reviews matched that search yet.
+    </p>
   </main>
   <Footer />
 </BaseLayout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const query = (params.get('q') || '').trim().toLowerCase();
+  const cards = Array.from(document.querySelectorAll('[data-review-card]'));
+  const searchInput = document.getElementById('site-search');
+  const status = document.getElementById('reviews-search-status');
+  const empty = document.getElementById('reviews-search-empty');
+
+  if (searchInput instanceof HTMLInputElement) {
+    searchInput.value = params.get('q') || '';
+  }
+
+  if (!query) {
+    if (status) status.classList.add('hidden');
+    if (empty) empty.classList.add('hidden');
+  } else {
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const haystack = (card.getAttribute('data-search') || '').toLowerCase();
+      const match = haystack.includes(query);
+      card.classList.toggle('hidden', !match);
+      if (match) visibleCount += 1;
+    });
+
+    if (status) {
+      status.textContent = `Search results for "${params.get('q')}"`;
+      status.classList.remove('hidden');
+    }
+
+    if (empty) {
+      empty.classList.toggle('hidden', visibleCount > 0);
+    }
+  }
+</script>

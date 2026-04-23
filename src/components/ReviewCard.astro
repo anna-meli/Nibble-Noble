@@ -17,10 +17,21 @@ const dateStr = pubDate.toLocaleDateString('en-US', {
 });
 const href = sitePath(`reviews/${review.slug}`);
 const imgSrc = heroImage ? sitePath(heroImage.replace(/^\/+/, '')) : null;
+const searchText = [
+  title,
+  description,
+  venue,
+  location,
+  cuisine ?? '',
+  priceBand ?? '',
+  ...(tags ?? []),
+].join(' ').toLowerCase();
 ---
 
 <article
   class="group flex flex-col overflow-hidden rounded-2xl border border-nn-border bg-nn-surface/50 shadow-cozy transition hover:border-nn-accent-border hover:bg-nn-surface"
+  data-review-card
+  data-search={searchText}
 >
   <a href={href} class="flex flex-1 flex-col outline-none focus-visible:ring-2 focus-visible:ring-nn-sage focus-visible:ring-offset-2 focus-visible:ring-offset-nn-bg">
     <div class="relative aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-stone-800 via-nn-surface to-nn-sage-dim/40">
