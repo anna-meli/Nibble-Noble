@@ -31,6 +31,11 @@
     background-attachment: fixed;
   }
 
+  body > :not(.floating-food-bg) {
+    position: relative;
+    z-index: 1;
+  }
+
   a:not([class]) {
     color: var(--nn-sage);
     text-decoration-thickness: 1px;
@@ -39,6 +44,96 @@
 
   a:not([class]):hover {
     color: var(--nn-cream);
+  }
+}
+
+.floating-food-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.floating-food {
+  position: absolute;
+  width: clamp(8rem, 17vw, 15rem);
+  opacity: 0.28;
+  will-change: transform;
+}
+
+.floating-food__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: saturate(0.88) sepia(0.04) drop-shadow(0 1.25rem 1.5rem rgba(0, 0, 0, 0.34));
+  animation: food-bob var(--float-duration, 14s) ease-in-out infinite alternate;
+}
+
+.floating-food--sushi {
+  top: 9vh;
+  left: max(1rem, 5vw);
+  --float-duration: 16s;
+}
+
+.floating-food--taco {
+  top: 18vh;
+  right: max(-1rem, 3vw);
+  width: clamp(9rem, 19vw, 16rem);
+  opacity: 0.24;
+  --float-duration: 18s;
+}
+
+.floating-food--maki {
+  bottom: 14vh;
+  right: max(1rem, 10vw);
+  width: clamp(7rem, 14vw, 12rem);
+  opacity: 0.2;
+  --float-duration: 19s;
+}
+
+.floating-food--burger {
+  bottom: 3vh;
+  left: max(-2rem, 9vw);
+  width: clamp(8rem, 16vw, 13rem);
+  opacity: 0.18;
+  --float-duration: 17s;
+}
+
+@keyframes food-bob {
+  from {
+    transform: translate3d(0, -0.35rem, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(0, 0.55rem, 0) scale(1.025);
+  }
+}
+
+@media (max-width: 640px) {
+  .floating-food {
+    opacity: 0.18;
+  }
+
+  .floating-food--sushi {
+    left: -2rem;
+  }
+
+  .floating-food--taco {
+    right: -3rem;
+  }
+
+  .floating-food--maki,
+  .floating-food--burger {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-food,
+  .floating-food__image {
+    animation: none;
+    will-change: auto;
   }
 }
 

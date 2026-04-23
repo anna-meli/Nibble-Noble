@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import FloatingFoodBackground from '../components/FloatingFoodBackground.astro';
 import { absoluteUrl, sitePath } from '../utils/site';
 
 interface Props {
@@ -46,6 +47,7 @@ const rssHref = Astro.site ? absoluteUrl(Astro.site, sitePath('rss.xml')) : site
     <link rel="alternate" type="application/rss+xml" title="Nibble & Noble" href={rssHref} />
   </head>
   <body class="min-h-dvh flex flex-col bg-nn-bg text-nn-text">
+    <FloatingFoodBackground />
     <slot />
   </body>
 </html>

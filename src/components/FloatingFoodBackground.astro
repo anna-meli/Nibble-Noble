@@ -1,0 +1,94 @@
+---
+import { sitePath } from '../utils/site';
+
+const sushiSrc = sitePath('food-bg/sushi.png');
+const tacoSrc = sitePath('food-bg/taco.png');
+const makiSrc = sitePath('food-bg/maki.png');
+const burgerSrc = sitePath('food-bg/burger.png');
+---
+
+<div class="floating-food-bg" aria-hidden="true">
+  <div
+    class="floating-food floating-food--sushi"
+    data-floating-food
+    data-speed-x="34"
+    data-speed-y="-92"
+    data-spin="22"
+    data-base-rotate="-12"
+  >
+    <img class="floating-food__image" src={sushiSrc} alt="" loading="lazy" decoding="async" />
+  </div>
+  <div
+    class="floating-food floating-food--taco"
+    data-floating-food
+    data-speed-x="-42"
+    data-speed-y="-118"
+    data-spin="-28"
+    data-base-rotate="13"
+  >
+    <img class="floating-food__image" src={makiSrc} alt="" loading="lazy" decoding="async" />
+  </div>
+  <div
+    class="floating-food floating-food--maki"
+    data-floating-food
+    data-speed-x="-28"
+    data-speed-y="-72"
+    data-spin="-18"
+    data-base-rotate="18"
+  >
+    <img class="floating-food__image" src={tacoSrc} alt="" loading="lazy" decoding="async" />
+  </div>
+  <div
+    class="floating-food floating-food--burger"
+    data-floating-food
+    data-speed-x="26"
+    data-speed-y="-84"
+    data-spin="20"
+    data-base-rotate="-18"
+  >
+    <img class="floating-food__image" src={burgerSrc} alt="" loading="lazy" decoding="async" />
+  </div>
+</div>
+
+<script>
+  const floatingFood = Array.from(document.querySelectorAll('[data-floating-food]'));
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let frame = 0;
+
+  function positionFloatingFood() {
+    frame = 0;
+
+    if (reducedMotion.matches) {
+      floatingFood.forEach((item) => {
+        const baseRotate = Number(item.dataset.baseRotate || 0);
+        item.style.transform = `rotate(${baseRotate}deg)`;
+      });
+      return;
+    }
+
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const progress = window.scrollY / maxScroll;
+
+    floatingFood.forEach((item) => {
+      const speedX = Number(item.dataset.speedX || 0);
+      const speedY = Number(item.dataset.speedY || 0);
+      const spin = Number(item.dataset.spin || 0);
+      const baseRotate = Number(item.dataset.baseRotate || 0);
+      const x = speedX * progress;
+      const y = speedY * progress;
+      const rotate = baseRotate + spin * progress;
+
+      item.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg)`;
+    });
+  }
+
+  function requestPositionUpdate() {
+    if (frame) return;
+    frame = window.requestAnimationFrame(positionFloatingFood);
+  }
+
+  positionFloatingFood();
+  window.addEventListener('scroll', requestPositionUpdate, { passive: true });
+  window.addEventListener('resize', requestPositionUpdate);
+  reducedMotion.addEventListener('change', requestPositionUpdate);
+</script>
