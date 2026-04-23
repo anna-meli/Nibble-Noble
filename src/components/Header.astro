@@ -49,13 +49,23 @@ const reviewsHref = sitePath('reviews');
     </nav>
     <form action={reviewsHref} method="get" class="w-full sm:w-auto sm:max-w-[240px] flex-1 sm:flex-initial">
       <label class="sr-only" for="site-search">Search reviews</label>
+      <div class="relative">
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-nn-cream/70"
+        >
+          <svg viewBox="0 0 20 20" class="h-4 w-4 fill-current">
+            <path d="M8.5 3a5.5 5.5 0 1 0 3.39 9.83l3.64 3.64a1 1 0 0 0 1.41-1.41l-3.64-3.64A5.5 5.5 0 0 0 8.5 3Zm0 1.75a3.75 3.75 0 1 1 0 7.5 3.75 3.75 0 0 1 0-7.5Z" />
+          </svg>
+        </span>
       <input
         id="site-search"
         name="q"
         type="search"
         placeholder="Search reviews"
-        class="w-full rounded-xl border border-nn-border bg-nn-surface/60 px-3 py-2 text-sm text-nn-text placeholder:text-stone-500 transition focus:border-nn-accent-border focus:outline-none focus:ring-2 focus:ring-nn-sage/30"
+        class="w-full rounded-2xl border border-white/12 bg-white/8 px-3 py-2 pl-9 text-sm text-nn-cream caret-nn-cream placeholder:text-stone-300/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_10px_30px_rgba(0,0,0,0.16)] backdrop-blur-xl transition focus:border-white/20 focus:bg-white/12 focus:outline-none focus:ring-2 focus:ring-white/10"
       />
+      </div>
     </form>
   </div>
 </header>
