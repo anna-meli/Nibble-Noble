@@ -267,3 +267,20 @@
 .nn-polaroid-row .nn-polaroid:nth-child(even) {
   z-index: 1;
 }
+
+/* Phone screens: scale polaroids and overlap so all four fit within the viewport */
+@media (max-width: 640px) {
+  .nn-polaroid-row {
+    padding: 0.25rem 0.5rem 0.75rem;
+    margin: 0.25rem 0 1.75rem;
+  }
+
+  .nn-polaroid-row .nn-polaroid .nn-polaroid__frame {
+    width: clamp(78px, 21vw, 140px);
+    padding: 0.5rem 0.5rem 1.6rem;
+  }
+
+  .nn-polaroid-row .nn-polaroid + .nn-polaroid {
+    margin-left: clamp(-1.5rem, -4.5vw, -0.75rem);
+  }
+}
