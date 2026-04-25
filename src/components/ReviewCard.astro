@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { review } = Astro.props;
-const { title, description, pubDate, venue, location, rating, priceBand, cuisine, tags, heroImage } =
+const { title, description, pubDate, venue, location, rating, priceBand, cuisine, tags, heroImage, featured } =
   review.data;
 const dateStr = pubDate.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -42,6 +42,27 @@ const searchText = [
           <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-nn-sage/25 via-transparent to-transparent" aria-hidden="true" />
         )
       }
+      <div
+        class="pointer-events-none absolute inset-0 mix-blend-screen"
+        style="background:
+          radial-gradient(circle at 94% 6%, rgba(255, 252, 240, 0.7), transparent 9%),
+          radial-gradient(circle at 94% 6%, rgba(132, 169, 140, 0.45), transparent 24%),
+          radial-gradient(circle at 72% 24%, rgba(255, 252, 240, 0.22), transparent 4%),
+          radial-gradient(circle at 72% 24%, rgba(132, 169, 140, 0.22), transparent 9%),
+          radial-gradient(circle at 54% 44%, rgba(132, 169, 140, 0.24), transparent 8%),
+          radial-gradient(circle at 38% 60%, rgba(255, 252, 240, 0.16), transparent 4%),
+          radial-gradient(circle at 38% 60%, rgba(132, 169, 140, 0.2), transparent 7%),
+          radial-gradient(circle at 22% 76%, rgba(132, 169, 140, 0.26), transparent 8%),
+          radial-gradient(circle at 8% 92%, rgba(255, 252, 240, 0.28), transparent 5%),
+          radial-gradient(circle at 8% 92%, rgba(132, 169, 140, 0.36), transparent 12%);"
+        aria-hidden="true"
+      ></div>
+      {featured && (
+        <span class="absolute top-3 right-3 z-10 inline-flex items-center gap-1 rounded-full bg-nn-sage px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-nn-bg shadow-cozy">
+          <span aria-hidden="true">★</span>
+          Featured
+        </span>
+      )}
       <div class="absolute bottom-3 left-3 right-3 flex flex-wrap items-end justify-between gap-2">
         <p class="font-display text-lg text-nn-cream drop-shadow-md">{venue}</p>
         {priceBand && (

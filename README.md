@@ -1,6 +1,15 @@
-[Frontend](http://127.0.0.1:4321/)
+<div align="center">
 
 # Nibble & Noble
+
+_A dark, editorial food journal for date-night verdicts._
+_Written like a notebook, not a press release._
+
+[**Visit the live site →**](https://anna-meli.github.io/Nibble-Noble/)
+
+</div>
+
+---
 
 A dark, editorial food journal built for long-form restaurant criticism, date-night notes, and honest verdicts. This is not a recipe site and it does not pretend to be one. The writing model here is venue, context, meal, verdict.
 
