@@ -81,11 +81,11 @@ Always use this structure:
 
 import Polaroid from '../../components/Polaroid.astro';
 
-<div class="nn-polaroid-row">
-  <Polaroid src="/reviews/<slug>/<file>" alt="..." size={224} tilt={-6} />
-  <Polaroid src="/reviews/<slug>/<file>" alt="..." size={224} tilt={4} />
-  <Polaroid src="/reviews/<slug>/<file>" alt="..." size={224} tilt={-3} />
-  <Polaroid src="/reviews/<slug>/<file>" alt="..." size={224} tilt={5} />
+<div class="nn-polaroid-row" style="--row-count: 4;">
+  <Polaroid src="/reviews/<slug>/<file>" alt="..." tilt={-6} />
+  <Polaroid src="/reviews/<slug>/<file>" alt="..." tilt={4} />
+  <Polaroid src="/reviews/<slug>/<file>" alt="..." tilt={-3} />
+  <Polaroid src="/reviews/<slug>/<file>" alt="..." tilt={5} />
 </div>
 
 ## Setting
@@ -129,8 +129,9 @@ import Polaroid from '../../components/Polaroid.astro';
 - Props: `src` (path under `/public/`), `alt`, optional `tilt` (degrees, default `-2`), optional `size` (px, default `320`), optional `caption`.
 - **Do not pass `caption`** unless the user explicitly asks for it — captions were removed from the established layout.
 - Inline body polaroids use the default size (320px) and a small varied `tilt` like `-3`, `2`, `-2`, `3`.
-- The polaroid row at the top uses `size={224}` (30% smaller than body polaroids) with stronger varied tilts like `-6`, `4`, `-3`, `5`. Always include all photographed dishes in this row, in the order they were served.
-- The `.nn-polaroid-row` class breaks out of the article column to span up to 1200px / 100vw and overlaps each polaroid by ~2rem onto its neighbour.
+- The polaroid row at the top auto-fits: **do not set `size` on row polaroids**. Set `--row-count: <N>` on the wrapping `<div class="nn-polaroid-row">` matching the number of polaroids inside. The CSS scales each frame down as count goes up so the row never overflows; overlap stays constant.
+- Use stronger varied tilts in the row (e.g. `-6`, `4`, `-3`, `5`, `-5`, `3`, `-4`, `6` …). Always include all photographed dishes, in the order they were served.
+- The `.nn-polaroid-row` class breaks out of the article column to span up to 1200px / 100vw, overlaps each polaroid by ~2rem onto its neighbour, and clamps frame size between 80px and 224px on desktop (50px–140px on phone screens).
 
 ## Per-dish list block
 

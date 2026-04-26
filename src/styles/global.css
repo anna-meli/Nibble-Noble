@@ -236,7 +236,14 @@
 
 /* Inline strip of polaroids (e.g. dish gallery under hero image) */
 /* Breaks out of the article column to span up to ~1200px / 100vw */
+/* Auto-fits: polaroids shrink as `--row-count` grows, overlap stays constant */
 .nn-polaroid-row {
+  --row-count: 4;
+  --row-overlap: 2rem;
+  --row-target-width: min(1100px, 100vw - 2rem);
+  --row-min-frame: 80px;
+  --row-max-frame: 224px;
+
   position: relative;
   left: 50%;
   transform: translateX(-50%);
@@ -256,7 +263,16 @@
 
 /* Subtle overlap onto neighbour for a "thrown on the table" look */
 .nn-polaroid-row .nn-polaroid + .nn-polaroid {
-  margin-left: -2rem;
+  margin-left: calc(var(--row-overlap) * -1);
+}
+
+/* Frame width derives from row target width and count, capped between min and max */
+.nn-polaroid-row .nn-polaroid .nn-polaroid__frame {
+  width: clamp(
+    var(--row-min-frame),
+    calc((var(--row-target-width) + var(--row-overlap) * (var(--row-count) - 1)) / var(--row-count)),
+    var(--row-max-frame)
+  );
 }
 
 /* Alternate stacking so neighbours interleave instead of all leaning the same way */
@@ -268,19 +284,19 @@
   z-index: 1;
 }
 
-/* Phone screens: scale polaroids and overlap so all four fit within the viewport */
+/* Phone screens: tighter targets and limits so the auto-fit math fits the viewport */
 @media (max-width: 640px) {
   .nn-polaroid-row {
+    --row-overlap: 1rem;
+    --row-target-width: calc(100vw - 1rem);
+    --row-min-frame: 50px;
+    --row-max-frame: 140px;
+
     padding: 0.25rem 0.5rem 0.75rem;
     margin: 0.25rem 0 1.75rem;
   }
 
   .nn-polaroid-row .nn-polaroid .nn-polaroid__frame {
-    width: clamp(78px, 21vw, 140px);
     padding: 0.5rem 0.5rem 1.6rem;
-  }
-
-  .nn-polaroid-row .nn-polaroid + .nn-polaroid {
-    margin-left: clamp(-1.5rem, -4.5vw, -0.75rem);
   }
 }

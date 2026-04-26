@@ -17,15 +17,18 @@ tags:
 
 import Polaroid from '../../components/Polaroid.astro';
 
-<div class="nn-polaroid-row">
-  <Polaroid src="/reviews/los-mexicanos-restaurant/frozen_strawberry_margaritas.jpeg" alt="Frozen Strawberry Margaritas" size={180} tilt={-7} />
-  <Polaroid src="/reviews/los-mexicanos-restaurant/ensalada_mexicana.jpeg" alt="Ensalada Mexicana" size={180} tilt={4} />
-  <Polaroid src="/reviews/los-mexicanos-restaurant/mexican_street_fries.jpeg" alt="Mexican Street Fries" size={180} tilt={-3} />
-  <Polaroid src="/reviews/los-mexicanos-restaurant/tacos_pistolero.jpeg" alt="Tacos Pistoleros" size={180} tilt={5} />
-  <Polaroid src="/reviews/los-mexicanos-restaurant/flautas.jpeg" alt="Flautas" size={180} tilt={-5} />
-  <Polaroid src="/reviews/los-mexicanos-restaurant/pistolero_ribs.jpeg" alt="Pistolero Ribs" size={180} tilt={3} />
-  <Polaroid src="/reviews/los-mexicanos-restaurant/quesadilla.jpeg" alt="Quesadilla" size={180} tilt={-4} />
-  <Polaroid src="/reviews/los-mexicanos-restaurant/supremos_fajitas.jpeg" alt="Supremos Fajitas" size={180} tilt={6} />
+<div class="nn-polaroid-row" style="--row-count: 4;">
+  <Polaroid src="/reviews/los-mexicanos-restaurant/frozen_strawberry_margaritas.jpeg" alt="Frozen Strawberry Margaritas" tilt={-7} />
+  <Polaroid src="/reviews/los-mexicanos-restaurant/ensalada_mexicana.jpeg" alt="Ensalada Mexicana" tilt={4} />
+  <Polaroid src="/reviews/los-mexicanos-restaurant/mexican_street_fries.jpeg" alt="Mexican Street Fries" tilt={-3} />
+  <Polaroid src="/reviews/los-mexicanos-restaurant/tacos_pistolero.jpeg" alt="Tacos Pistoleros" tilt={5} />
+</div>
+
+<div class="nn-polaroid-row" style="--row-count: 4; margin-top: -9rem;">
+  <Polaroid src="/reviews/los-mexicanos-restaurant/flautas.jpeg" alt="Flautas" tilt={6} />
+  <Polaroid src="/reviews/los-mexicanos-restaurant/pistolero_ribs.jpeg" alt="Pistolero Ribs" tilt={-8} />
+  <Polaroid src="/reviews/los-mexicanos-restaurant/quesadilla.jpeg" alt="Quesadilla" tilt={4} />
+  <Polaroid src="/reviews/los-mexicanos-restaurant/supremos_fajitas.jpeg" alt="Supremos Fajitas" tilt={-5} />
 </div>
 
 ## Setting
