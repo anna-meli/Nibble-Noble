@@ -12,6 +12,9 @@ export default {
           cream: 'var(--nn-cream)',
           sage: 'var(--nn-sage)',
           border: 'var(--nn-border)',
+          copper: 'var(--nn-copper)',
+          'bg-deep': 'var(--nn-bg-deep)',
+          'accent-border': 'var(--nn-accent-border)',
         },
       },
       fontFamily: {
@@ -20,6 +23,7 @@ export default {
       },
       boxShadow: {
         cozy: '0 2px 12px rgba(0, 0, 0, 0.35)',
+        'cozy-lg': '0 22px 60px -18px rgba(0, 0, 0, 0.6), 0 6px 20px -8px rgba(0, 0, 0, 0.45)',
       },
     },
   },

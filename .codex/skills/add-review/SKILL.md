@@ -17,6 +17,7 @@ Create a valid review file under `src/content/reviews/<slug>.mdx` that matches t
 - The `reviews` collection schema is defined in `src/content/config.ts`.
 - Per-dish polaroids use the `Polaroid.astro` component at `src/components/Polaroid.astro`.
 - Inline polaroid row styles live in `src/styles/global.css` under `.nn-polaroid-row`.
+- The single-review template (`src/pages/reviews/[...slug].astro`) auto-renders a "verdict card" after the MDX body when `rating` is set in frontmatter. The card pulls `venue`, `location`, and `rating` (formatted as `x.x / 5`) from frontmatter — so those fields are doing double duty (header + verdict card). The reviewer never adds this card by hand; it appears automatically.
 - Required frontmatter:
   - `title`
   - `description`
@@ -123,6 +124,8 @@ import Polaroid from '../../components/Polaroid.astro';
 {Closing paragraph: who it's for, whether to return, the core takeaway.}
 ```
 
+> The MDX `## Verdict` heading is the **prose** conclusion. The page template *also* renders a separate auto-generated verdict card (with the numeric `rating / 5`, venue, and location) immediately below this section. Keep the prose verdict — the two complement each other.
+
 ## Polaroid component rules
 
 - Import once at the top of the MDX: `import Polaroid from '../../components/Polaroid.astro';`
@@ -177,7 +180,7 @@ Before writing, check whether a slug already exists in `src/content/reviews/` an
 - `heroImage` starts with `/` and points at `/reviews/<slug>/<file>`
 - `tags` should be a short list of useful labels, not a paragraph
 - `description` reads like a dek: one strong sentence
-- `rating` is the user's editorial overall (not necessarily the arithmetic average of per-dish scores). If the per-dish average diverges noticeably from the editorial rating, flag it to the user — don't silently overwrite either number.
+- `rating` is the user's editorial overall (not necessarily the arithmetic average of per-dish scores). If the per-dish average diverges noticeably from the editorial rating, flag it to the user — don't silently overwrite either number. This number is what the auto-rendered verdict card displays as `x.x / 5`; omitting `rating` hides the card entirely.
 - If the user does not provide `rating`, omit it rather than inventing one
 - If the user does not provide `featured`, omit it unless they explicitly want it featured
 

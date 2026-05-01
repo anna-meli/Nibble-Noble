@@ -91,6 +91,25 @@ const og = absoluteUrl(
         <Content />
       </Prose>
 
+      {rating != null && (
+        <aside class="mt-16 overflow-hidden rounded-2xl border border-nn-accent-border/60 bg-gradient-to-br from-nn-surface/80 to-nn-bg-deep/80 p-7 shadow-cozy-lg">
+          <div class="flex flex-wrap items-center justify-between gap-6">
+            <div>
+              <p class="nn-eyebrow mb-2">The verdict</p>
+              <p class="font-display text-xl text-nn-cream max-w-md">
+                {venue}, <span class="italic text-nn-sage">{location}</span>
+              </p>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-display text-6xl font-semibold leading-none tabular-nums text-nn-sage drop-shadow-[0_2px_10px_rgba(132,169,140,0.25)]">
+                {rating.toFixed(1)}
+              </span>
+              <span class="font-display text-lg italic text-nn-muted">/ 5</span>
+            </div>
+          </div>
+        </aside>
+      )}
+
       <footer class="mt-14 border-t border-nn-border pt-8">
         <a href={sitePath('reviews')} class="text-sm font-medium text-nn-sage hover:text-nn-cream transition-colors">
           ← Back to all reviews

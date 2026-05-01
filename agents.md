@@ -94,13 +94,14 @@ The public URL is `/reviews/<slug>/` where `<slug>` is the filename without exte
 
 Defined as CSS variables in `src/styles/global.css` and exposed to Tailwind as `nn.*` colors in `tailwind.config.mjs`:
 
-- **Background:** `--nn-bg` — warm charcoal.
+- **Background:** `--nn-bg` — warm charcoal. Deep panel surface `--nn-bg-deep` (used in the single-review verdict card gradient).
 - **Surfaces:** `--nn-surface`, `--nn-elevated`.
 - **Text:** `--nn-text`, muted `--nn-muted`, highlight `--nn-cream`.
-- **Accent:** `--nn-sage` (links, chips, focus).
-- **Borders:** `--nn-border`, `--nn-accent-border`.
+- **Accent:** `--nn-sage` (links, chips, focus, verdict card numerals). `--nn-copper` is reserved as a warm accent (defined but currently unused after the sage-first verdict styling).
+- **Borders:** `--nn-border`, `--nn-accent-border` (sage-tinted).
+- **Shadows:** `shadow-cozy` (default cards) and `shadow-cozy-lg` (heavier elevation for the verdict card).
 
-**Typography:** Google Fonts in `BaseLayout.astro` — **Literata** (display) and **Source Sans 3** (UI/body). Prose for MDX uses the `.nn-prose` class via `Prose.astro`.
+**Typography:** Google Fonts in `BaseLayout.astro` — **Literata** (display) and **Source Sans 3** (UI/body). Prose for MDX uses the `.nn-prose` class via `Prose.astro`. The `.nn-eyebrow` utility (also in `global.css`) renders a small caps + leading-rule label and is used by the verdict card; reuse it for any future section eyebrows.
 
 **Aesthetic:** Cozy rustic — rounded cards (`rounded-2xl`), soft shadow (`shadow-cozy`), sage + cream on dark stone.
 
@@ -112,6 +113,16 @@ Defined as CSS variables in `src/styles/global.css` and exposed to Tailwind as `
 - `RatingStars.astro` — 1–5 display.
 - `TagList.astro` — tag pills.
 - `Prose.astro` — wraps MDX body with `.nn-prose`.
+
+## Single review page anatomy
+
+`src/pages/reviews/[...slug].astro` renders, in order:
+
+1. **Header block** — venue · location · price band, title, dek, date, cuisine, `RatingStars`, tags.
+2. **Hero image** — optional, when `heroImage` is set.
+3. **Prose body** — the MDX `<Content />` wrapped in `Prose.astro`.
+4. **Verdict card** — auto-rendered when `rating != null`. Pulls `venue`, `location`, and `rating.toFixed(1)` from frontmatter, rendered inside an `<aside>` styled with `border-nn-accent-border`, the `from-nn-surface to-nn-bg-deep` gradient, `shadow-cozy-lg`, and the `.nn-eyebrow` "The verdict" label. Reviewers do not author it — it's part of the page template.
+5. **Footer** — "← Back to all reviews" link.
 
 ## Images
 

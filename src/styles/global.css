@@ -13,6 +13,8 @@
   --nn-sage-dim: #5c7363;
   --nn-border: rgba(245, 240, 230, 0.12);
   --nn-accent-border: rgba(132, 169, 140, 0.45);
+  --nn-copper: #d59a5a;
+  --nn-bg-deep: #0d0a08;
 }
 
 @layer base {
@@ -299,4 +301,24 @@
   .nn-polaroid-row .nn-polaroid .nn-polaroid__frame {
     padding: 0.5rem 0.5rem 1.6rem;
   }
+}
+
+.nn-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--nn-sage);
+}
+
+.nn-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 1.75rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--nn-sage));
 }
