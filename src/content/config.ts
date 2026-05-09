@@ -14,6 +14,8 @@ const reviews = defineCollection({
     cuisine: z.string().optional(),
     /** Path under `/public`, e.g. `/images/hero.svg` */
     heroImage: z.string().optional(),
+    /** CSS object-position for the hero image (e.g. `center bottom`, `center 70%`). Defaults to center. */
+    heroImagePosition: z.string().optional(),
     tags: z.array(z.string()).optional(),
     featured: z.boolean().optional(),
   }),

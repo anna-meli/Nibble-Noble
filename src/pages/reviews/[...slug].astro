@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, description, pubDate, venue, location, rating, priceBand, cuisine, tags, heroImage } = entry.data;
+const { title, description, pubDate, venue, location, rating, priceBand, cuisine, tags, heroImage, heroImagePosition } = entry.data;
 const dateStr = pubDate.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
@@ -79,6 +79,7 @@ const og = absoluteUrl(
               src={sitePath(heroImage.replace(/^\/+/, ''))}
               alt=""
               class="aspect-[16/9] w-full object-cover"
+              style={heroImagePosition ? `object-position: ${heroImagePosition}` : undefined}
               width={800}
               height={450}
               loading="eager"
